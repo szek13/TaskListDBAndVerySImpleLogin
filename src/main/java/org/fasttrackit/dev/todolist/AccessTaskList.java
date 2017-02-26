@@ -12,14 +12,18 @@ public class AccessTaskList {
     public List getTaskList() {
 
         List listaTaskList = new ArrayList<ToDoBean>();
+
+
         try {
+
+            UserAccessList userAccess = new UserAccessList();
 
 
             Class.forName("org.postgresql.Driver");
 
 
             // 2. define connection params to db
-            final String URL = "jdbc:postgresql://54.93.65.5:5432/5IonelD";
+            final String URL = "jdbc:postgresql://54.93.65.5:5432/5csongor";
             final String USERNAME = "fasttrackit_dev";
             final String PASSWORD = "fasttrackit_dev";
 
@@ -29,7 +33,7 @@ public class AccessTaskList {
             // 4. create a query statement
             Statement st = conn.createStatement();
 
-            String query = "SELECT * FROM tasklistionel order by taskname asc";
+            String query = "SELECT * FROM tasklist order by taskname asc";
             // 5. execute a query
             ResultSet rs = st.executeQuery(query);
 
@@ -70,9 +74,8 @@ public class AccessTaskList {
         // inchid conex
 
 
-        final String URL = "jdbc:postgresql://54.93.65.5:5432/5IonelD";
+        final String URL = "jdbc:postgresql://54.93.65.5:5432/5csongor";
         final String USERNAME = "fasttrackit_dev";
-
         final String PASSWORD = "fasttrackit_dev";
 
         // 3. obtain a connection
@@ -82,7 +85,7 @@ public class AccessTaskList {
             Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
             // 4. create a query statement
-            PreparedStatement pSt = conn.prepareStatement("INSERT INTO tasklistionel (taskname,isdone) VALUES (?,?)");
+            PreparedStatement pSt = conn.prepareStatement("INSERT INTO tasklist (taskname,isdone) VALUES (?,?)");
             pSt.setString(1, nameOfTheTask);
             pSt.setBoolean(2, false);
 
@@ -112,7 +115,7 @@ public class AccessTaskList {
         // inchid conex
 
 
-        final String URL = "jdbc:postgresql://54.93.65.5:5432/5IonelD";
+        final String URL = "jdbc:postgresql://54.93.65.5:5432/5csongor";
         final String USERNAME = "fasttrackit_dev";
 
         final String PASSWORD = "fasttrackit_dev";
@@ -124,7 +127,7 @@ public class AccessTaskList {
             Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 
             // 4. create a query statement
-            PreparedStatement pSt = conn.prepareStatement("update tasklistionel set isdone=true where id=?");
+            PreparedStatement pSt = conn.prepareStatement("update tasklist set isdone=true where id=?");
             pSt.setInt(1, id);
 
 
@@ -142,4 +145,30 @@ public class AccessTaskList {
 
     }
 
+
+ /*  private void loginToDB(String username, String password){
+
+
+        final String URL = "jdbc:postgresql://54.93.65.5:5432/5csongor";
+        final String USERNAME = "fasttrackit_dev";
+        final String PASSWORD = "fasttrackit_dev";
+
+        try {
+
+            Class.forName("org.postgresql.Driver");
+            Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+
+            PreparedStatement pSt = conn.prepareStatement("SELECT id FROM useri WHERE username=request.getParameter('u') " +
+                    "and password=request.getParameter('p')");
+
+            pSt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }  */
 }

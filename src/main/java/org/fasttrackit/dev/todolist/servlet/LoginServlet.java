@@ -1,5 +1,7 @@
 package org.fasttrackit.dev.todolist.servlet;
 
+import org.fasttrackit.dev.todolist.UserAccessList;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,25 +26,23 @@ public class LoginServlet extends HttpServlet {
         String passwd = request.getParameter("p");
 
         // static & simulated db row
-        final String dbu="ionel";
-        final String dbp="anaaremere1";
-        final String userid="356";
+      //  final String dbu="csongor";
+      //  final String dbp="szekely13";
+      //  final String userid="356";
 
 
+        UserAccessList userAccesss = new UserAccessList();
 
 
+        int iduser = -1;
 
-
-        // version 5
-        // the UI and the usability is so ugly
-        // TASK: pls fix the UI and the usability by adding some css classes
-
-
-        if(dbu.equals(user) && dbp.equals(passwd)) {
+        iduser = userAccesss.checkUserCredentials(user, passwd);
+        if(iduser != -1) {
+            System.out.println(user + "000");
             // userul exista in db, deci il autentific
             HttpSession session = request.getSession(true);
             session.setAttribute("username",user);
-            session.setAttribute("usernameid",userid);
+            session.setAttribute("userid",iduser);
 
             String success = "/todolist.html";
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(success);
